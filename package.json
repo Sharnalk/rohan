@@ -1,0 +1,30 @@
+{
+  "name": "rohan",
+  "version": "0.1.0",
+  "description": "Browser extension to convert PDFs into Markdown or plain text",
+  "private": true,
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "typecheck": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.8.1",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.8.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/chrome": "^0.3.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^6.3.289"
+  }
+}
