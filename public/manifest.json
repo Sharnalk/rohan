@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "rohan",
+  "version": "0.1.0",
+  "description": "Convert PDF files to plain text or markdown.",
+  "action": { "default_title": "rohan" },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  }
+}
