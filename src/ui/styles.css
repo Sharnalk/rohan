@@ -1,0 +1,524 @@
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+/* ---------- Tokens (shadcn "neutral") ---------- */
+
+:root {
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  --segment-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+
+  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --radius-card: 10px;
+  --radius-control: 8px;
+
+  color-scheme: light;
+}
+
+/* Dark tokens: same values for the system preference and the manual toggle. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --border: oklch(1 0 0 / 10%);
+    --ring: oklch(0.556 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --ring: oklch(0.556 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --shadow: none;
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--foreground);
+  font: 400 14px/1.5 var(--font-sans);
+}
+
+.icon {
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  height: 36px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-control);
+  font: 500 14px var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 150ms, opacity 150ms, filter 150ms;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.button-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.button-secondary {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.button-secondary:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button-ghost:hover:not(:disabled) {
+  background: var(--muted);
+}
+
+.button-icon {
+  width: 36px;
+  padding: 0;
+  justify-content: center;
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button-icon:hover {
+  background: var(--muted);
+}
+
+.button:active:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+/* ---------- Header ---------- */
+
+.topbar {
+  height: 56px;
+  flex-shrink: 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* The toggle shows the theme you would switch to. */
+.icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+}
+
+/* ---------- Page ---------- */
+
+.page {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.intro p {
+  margin: 0;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+
+/* ---------- Dropzone and file row ---------- */
+
+.dropzone {
+  margin-top: 24px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+
+.dropzone > .icon {
+  color: var(--muted-foreground);
+}
+
+.dropzone:hover,
+.dropzone.is-dragging {
+  border-style: solid;
+  border-color: var(--foreground);
+  background: var(--muted);
+}
+
+/* The real input is hidden: its keyboard focus is drawn on the dropzone. */
+#pdf-input:focus-visible + .dropzone {
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+}
+
+.dropzone-title {
+  font-weight: 500;
+}
+
+.dropzone-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted-foreground);
+}
+
+.dropzone-or .button {
+  pointer-events: none;
+}
+
+.file-row {
+  margin-top: 24px;
+  height: 56px;
+  padding: 0 10px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.file-name {
+  min-width: 0;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-row .button {
+  margin-left: auto;
+}
+
+/* ---------- Status ---------- */
+
+.status {
+  margin-top: 12px;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status .icon {
+  display: none;
+}
+
+.status[data-state="loading"] .icon-loading,
+.status[data-state="done"] .icon-done,
+.status[data-state="error"] .icon-error {
+  display: block;
+}
+
+.status[data-state="error"] {
+  color: var(--destructive);
+}
+
+.icon-loading {
+  animation: spin 0.9s linear infinite;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.skeleton {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skeleton > div {
+  height: 12px;
+  border-radius: 4px;
+  background: var(--muted);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.result {
+  overflow: hidden;
+  animation: rise 200ms ease-out;
+}
+
+.toolbar {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-start {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolbar-end {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.segmented {
+  padding: 3px;
+  display: flex;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.segment {
+  height: 28px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font: 500 14px var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.segment[aria-selected="true"] {
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--segment-shadow);
+}
+
+.segment:disabled {
+  cursor: not-allowed;
+}
+
+.badge {
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: 10px var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.icon-copied {
+  display: none;
+}
+
+.is-copied .icon-copied {
+  display: block;
+}
+
+.is-copied .icon-copy {
+  display: none;
+}
+
+.result-body {
+  max-height: 60vh;
+  padding: 32px;
+  overflow: auto;
+}
+
+.output {
+  max-width: 68ch;
+  margin: 0;
+  font: 400 15px/1.65 var(--font-sans);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  margin-top: auto;
+  padding: 48px 0 24px;
+  text-align: center;
+}
+
+/* ---------- Narrow window ---------- */
+
+@media (max-width: 900px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-loading {
+    animation: none;
+  }
+
+  .result {
+    animation-name: fade;
+  }
+}
