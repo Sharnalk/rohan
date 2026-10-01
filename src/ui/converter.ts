@@ -1,2 +1,2 @@
-const status = document.querySelector("#status");
-if (status) status.textContent = "Prêt.";
+const statusElement = document.querySelector("#status");
+if (statusElement) statusElement.textContent = "Prêt.";
