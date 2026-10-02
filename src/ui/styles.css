@@ -193,8 +193,38 @@ body {
 }
 
 .brand-name {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand-o {
+  position: relative;
+}
+
+/*
+ * The hat is as wide as the "o" and its brim rests on the top of the letter
+ * (font ascent = 1em, "o" height = 0.556em). Height follows the 24:16 viewBox.
+ * Drawn in currentColor, so it follows the text color in both themes.
+ */
+.logo-hat {
+  position: absolute;
+  left: 50%;
+  top: 0.21em;
+  width: 0.6em;
+  height: 0.4em;
+  transform: translateX(-50%);
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.logo-hat * {
+  vector-effect: non-scaling-stroke;
 }
 
 /* The toggle shows the theme you would switch to. */
@@ -475,6 +505,22 @@ body {
   margin-top: auto;
   padding: 48px 0 24px;
   text-align: center;
+  white-space: normal;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 150ms, text-decoration-color 150ms;
+}
+
+.footer-link:hover {
+  color: var(--foreground);
+  text-decoration-color: currentColor;
 }
 
 /* ---------- Narrow window ---------- */
