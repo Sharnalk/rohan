@@ -1,4 +1,4 @@
-import type { TextItem } from "./types";
+import type { TextItem } from "../types";
 
 /**
  * Builds plain text from the items of each page.
