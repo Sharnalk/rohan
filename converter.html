@@ -95,11 +95,9 @@
       <section id="result" class="card result" hidden>
         <div class="toolbar">
           <div class="toolbar-start">
-            <div class="segmented" role="tablist" aria-label="Output format">
-              <button class="segment" type="button" role="tab" aria-selected="true">Text</button>
-              <button class="segment" type="button" role="tab" aria-selected="false" disabled>
-                Markdown <span class="badge">SOON</span>
-              </button>
+            <div class="segmented" role="group" aria-label="Output format">
+              <button id="format-text" class="segment" type="button" aria-pressed="true">Text</button>
+              <button id="format-markdown" class="segment" type="button" aria-pressed="false">Markdown</button>
             </div>
             <span id="result-meta" class="label"></span>
           </div>
@@ -120,7 +118,7 @@
                 <path d="m7 10 5 5 5-5" />
                 <path d="M12 15V3" />
               </svg>
-              <span>Download .txt</span>
+              <span id="download-label">Download .txt</span>
             </button>
           </div>
         </div>

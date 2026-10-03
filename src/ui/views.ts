@@ -12,6 +12,7 @@ const skeleton = getElement("skeleton");
 const result = getElement("result");
 const resultMeta = getElement("result-meta");
 const output = getElement("output");
+const downloadLabel = getElement("download-label");
 
 /** Updates only the status line (icon, color and message). */
 export function setStatus(state: ViewState, message: string): void {
@@ -34,10 +35,11 @@ export function showFile(name: string): void {
   filePages.textContent = "";
 }
 
-export function showResult(content: string, pageCount: number): void {
+export function showResult(content: string, pageCount: number, extension: string): void {
   output.textContent = content;
   filePages.textContent = plural(pageCount, "PAGE");
   resultMeta.textContent = `${plural(pageCount, "PAGE")} · ${plural(content.length, "CHARACTER")}`;
+  downloadLabel.textContent = `Download .${extension}`;
   showState("done", "Done.");
 }
 

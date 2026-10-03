@@ -1,16 +1,8 @@
-import type { TextItem } from "../types";
+import type { Block } from "../types";
 
-/**
- * Builds plain text from the items of each page.
- *
- * Shape of `pages`:
- * [
- *   [ { text: "Title", endsLine: true }, { text: "Body", endsLine: false } ], // page 1
- *   [ ... ],                                                                  // page 2
- * ]
- */
-export function toText(pages: TextItem[][]): string {
-  return pages
-    .map((page) => page.map((item) => item.text + (item.endsLine ? "\n" : "")).join(""))
+/** Plain text: one block per paragraph, list markers kept as in the PDF. */
+export function toText(blocks: Block[]): string {
+  return blocks
+    .map((block) => (block.kind === "list-item" ? `${block.marker} ${block.text}` : block.text))
     .join("\n\n");
 }

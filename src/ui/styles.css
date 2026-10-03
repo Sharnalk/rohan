@@ -455,22 +455,14 @@ body {
   cursor: pointer;
 }
 
-.segment[aria-selected="true"] {
+.segment:hover {
+  color: var(--foreground);
+}
+
+.segment[aria-pressed="true"] {
   background: var(--card);
   color: var(--foreground);
   box-shadow: var(--segment-shadow);
-}
-
-.segment:disabled {
-  cursor: not-allowed;
-}
-
-.badge {
-  padding: 1px 6px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font: 10px var(--font-mono);
-  letter-spacing: 0.04em;
 }
 
 .icon-copied {
