@@ -43,7 +43,8 @@ export function setupResultActions(getResult: () => ConversionResult): void {
 }
 
 function download(content: string, name: string): void {
-  const url = URL.createObjectURL(new Blob([content], { type: "text/plain" }));
+  const type = name.endsWith(".md") ? "text/markdown" : "text/plain";
+  const url = URL.createObjectURL(new Blob([content], { type }));
   const link = document.createElement("a");
   link.href = url;
   link.download = name;
