@@ -3,12 +3,10 @@ import { convertPages, type Conversion } from "../core/convert-pages";
 import { extractItems } from "../pdf/pdfjs-extract-items";
 import { getElement } from "./dom";
 import { setupFileInputs } from "./file-inputs";
-import { setupFormatSwitch, type OutputFormat } from "./format-switch";
+import { EXTENSIONS, setupFormatSwitch, type OutputFormat } from "./format-switch";
 import { setupResultActions, type ConversionResult } from "./result-actions";
 import { setupThemeToggle } from "./theme";
 import { showFile, showResult, showState } from "./views";
-
-const EXTENSIONS: Record<OutputFormat, string> = { text: "txt", markdown: "md" };
 
 let conversion: Conversion = { text: "", markdown: "" };
 let pageCount = 0;
