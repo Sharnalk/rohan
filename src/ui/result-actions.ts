@@ -1,4 +1,5 @@
 import { getElement } from "./dom";
+import { download } from "./download";
 import { setStatus } from "./views";
 
 const COPIED_FEEDBACK_MS = 2000;
@@ -40,14 +41,4 @@ export function setupResultActions(getResult: () => ConversionResult): void {
     const { content, fileName } = getResult();
     download(content, fileName);
   });
-}
-
-function download(content: string, name: string): void {
-  const type = name.endsWith(".md") ? "text/markdown" : "text/plain";
-  const url = URL.createObjectURL(new Blob([content], { type }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = name;
-  link.click();
-  URL.revokeObjectURL(url);
 }
