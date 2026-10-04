@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>rohan</title>
+    <script src="/theme-init.js"></script>
+  </head>
+  <body class="popup">
+    <!-- Hidden until the tab is known: on a page that is not a PDF, the popup only opens the converter. -->
+    <div id="content" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-name">r<span class="brand-o">o<svg class="logo-hat" viewBox="0 0 24 16" aria-hidden="true">
+                <ellipse cx="12" cy="13" rx="11" ry="2.5" />
+                <path d="M6 3 7 13M18 3l-1 10" />
+                <ellipse cx="12" cy="3" rx="6" ry="1.6" />
+                <path d="M10 4.6v8.9M14 4.6v8.9M6.5 8.2a5.6 1.4 0 0 0 11 0" />
+              </svg></span>han</span>
+          <span class="label">PDF → TXT / MD</span>
+        </div>
+      </header>
+
+      <main class="popup-body">
+        <div class="file-row">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
+          <span id="file-name" class="file-name"></span>
+        </div>
+
+        <div id="permission" class="popup-permission" hidden>
+          <p>To read this PDF, rohan needs access to the websites you open PDFs on. The conversion stays in your browser.</p>
+          <button id="allow-button" class="button button-primary" type="button">Allow access</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite">
+          <svg class="icon icon-loading" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+          <svg class="icon icon-done" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+          <svg class="icon icon-error" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          <span id="status-text"></span>
+        </div>
+
+        <!-- Disabled until the PDF is converted. -->
+        <fieldset id="actions" class="popup-actions" disabled>
+          <span class="label">TEXT</span>
+          <button id="copy-text" class="button button-secondary" type="button">Copy</button>
+          <button id="download-text" class="button button-secondary" type="button">Download .txt</button>
+          <span class="label">MARKDOWN</span>
+          <button id="copy-markdown" class="button button-secondary" type="button">Copy</button>
+          <button id="download-markdown" class="button button-secondary" type="button">Download .md</button>
+        </fieldset>
+      </main>
+
+      <footer class="popup-footer">
+        <button id="open-converter" class="button button-ghost" type="button">Open the converter ↗</button>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/ui/popup.ts"></script>
+  </body>
+</html>

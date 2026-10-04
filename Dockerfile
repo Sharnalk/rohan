@@ -4,7 +4,7 @@ RUN corepack enable
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm build && rm dist/manifest.json dist/background.js
+RUN pnpm build && rm dist/manifest.json dist/background.js dist/popup.html
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

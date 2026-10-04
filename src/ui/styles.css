@@ -515,6 +515,75 @@ body {
   text-decoration-color: currentColor;
 }
 
+/* ---------- Popup ---------- */
+
+/* The browser sizes the popup to its content: no full-height body there. */
+.popup {
+  width: 360px;
+  min-height: 0;
+}
+
+.popup .topbar {
+  height: 48px;
+  padding: 0 16px;
+}
+
+.popup-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popup .file-row,
+.popup .status {
+  margin-top: 0;
+}
+
+.popup .file-row {
+  height: 44px;
+  padding: 0 12px;
+}
+
+.popup .status:not([data-state]) {
+  display: none;
+}
+
+.popup-permission {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.popup-permission p {
+  margin: 0;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+
+/* Two rows: format, Copy, Download. */
+.popup-actions {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  border: none;
+}
+
+.popup-footer {
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border);
+}
+
 /* ---------- Narrow window ---------- */
 
 @media (max-width: 900px) {

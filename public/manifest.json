@@ -2,10 +2,37 @@
   "manifest_version": 3,
   "name": "rohan",
   "version": "0.1.0",
-  "description": "Convert PDF files to plain text or markdown.",
-  "action": { "default_title": "rohan" },
+  "description": "Convert PDFs to plain text or Markdown, right in your browser. Nothing is sent over the internet.",
+  "homepage_url": "https://github.com/Sharnalk/rohan",
+  "icons": {
+    "16": "icons/heaven-16.png",
+    "32": "icons/heaven-32.png",
+    "48": "icons/heaven-48.png",
+    "128": "icons/heaven-128.png"
+  },
+  "action": {
+    "default_title": "rohan",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/hat-16.png",
+      "32": "icons/hat-32.png"
+    },
+    "theme_icons": [
+      { "light": "icons/hat-light-16.png", "dark": "icons/hat-16.png", "size": 16 },
+      { "light": "icons/hat-light-32.png", "dark": "icons/hat-32.png", "size": 32 }
+    ]
+  },
   "background": {
     "service_worker": "background.js",
     "scripts": ["background.js"]
+  },
+  "permissions": ["activeTab"],
+  "optional_host_permissions": ["<all_urls>"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "rohan@sharnalk",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
   }
 }

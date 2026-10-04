@@ -3,6 +3,6 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "./",
   build: {
-    rollupOptions: { input: "converter.html" },
+    rollupOptions: { input: ["converter.html", "popup.html"] },
   },
 });
