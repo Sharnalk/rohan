@@ -8,7 +8,8 @@ Everything runs in your browser: the PDF is never sent anywhere.
 - **On a PDF tab**: click the toolbar button to copy or download the PDF you are reading, as text or Markdown.
   When a web PDF finishes loading, the black hat of the icon tips and turns into Heaven's Door's hat
   (once access to websites is given).
-- **Converter page**: drop any PDF from your computer, preview the result, then copy or download it.
+- **Converter page**: drop one or several PDFs from your computer, preview each result, then copy or download
+  them one by one, or select several to copy them together.
 - Markdown output detects headings (from font sizes), paragraphs and lists.
 - Light and dark themes. Works offline.
 

@@ -330,6 +330,17 @@ body {
   pointer-events: none;
 }
 
+/* Once files are added, the dropzone shrinks to one line to make room for the list. */
+.dropzone.is-compact {
+  height: 64px;
+  flex-direction: row;
+}
+
+.dropzone.is-compact > .icon,
+.dropzone.is-compact > .label {
+  display: none;
+}
+
 .file-row {
   margin-top: 24px;
   height: 56px;
@@ -349,10 +360,6 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.file-row .button {
-  margin-left: auto;
 }
 
 /* ---------- Status ---------- */
@@ -393,20 +400,6 @@ body {
   box-shadow: var(--shadow);
 }
 
-.skeleton {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.skeleton > div {
-  height: 12px;
-  border-radius: 4px;
-  background: var(--muted);
-  animation: pulse 1.6s ease-in-out infinite;
-}
-
 .result {
   overflow: hidden;
   animation: rise 200ms ease-out;
@@ -430,6 +423,7 @@ body {
 .toolbar-end {
   margin-left: auto;
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -489,6 +483,75 @@ body {
   font: 400 15px/1.65 var(--font-sans);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* ---------- File list ---------- */
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.checkbox:disabled {
+  cursor: default;
+}
+
+.file-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-item {
+  height: 52px;
+  padding: 0 6px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.file-item + .file-item {
+  border-top: 1px solid var(--border);
+}
+
+.file-item.is-previewed {
+  background: var(--muted);
+}
+
+/* The file name is a button that shows the file in the preview. */
+.file-open {
+  min-width: 0;
+  flex: 1;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.file-open:disabled {
+  color: var(--muted-foreground);
+  cursor: default;
+}
+
+.file-open .file-name {
+  display: block;
+}
+
+.file-open:hover:not(:disabled) .file-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.file-item[data-state="error"] .file-meta {
+  color: var(--destructive);
 }
 
 /* ---------- Footer ---------- */
@@ -598,12 +661,6 @@ body {
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  50% {
-    opacity: 0.5;
   }
 }
 

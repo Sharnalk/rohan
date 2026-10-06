@@ -1,22 +1,19 @@
 import { getElement } from "./dom";
 
 /**
- * Wires every way of choosing a PDF (file picker, "Change file" button, drag and drop)
- * to a single callback. This module does not know what happens to the file next.
+ * Wires every way of choosing PDFs (file picker, drag and drop) to a single callback.
+ * This module does not know what happens to the files next.
  */
-export function setupFileInputs(onFile: (file: File) => void): void {
+export function setupFileInputs(onFiles: (files: File[]) => void): void {
   const pdfInput = getElement<HTMLInputElement>("pdf-input");
   const dropzone = getElement("dropzone");
-  const changeFileButton = getElement<HTMLButtonElement>("change-file");
 
   pdfInput.addEventListener("change", () => {
-    const file = pdfInput.files?.[0];
-    // Reset so that choosing the same file again still fires "change".
+    const files = [...(pdfInput.files ?? [])];
+    // Reset so that choosing the same files again still fires "change".
     pdfInput.value = "";
-    if (file) onFile(file);
+    if (files.length > 0) onFiles(files);
   });
-
-  changeFileButton.addEventListener("click", () => pdfInput.click());
 
   dropzone.addEventListener("dragover", (event) => {
     event.preventDefault();
@@ -28,8 +25,8 @@ export function setupFileInputs(onFile: (file: File) => void): void {
   dropzone.addEventListener("drop", (event) => {
     event.preventDefault();
     dropzone.classList.remove("is-dragging");
-    const file = event.dataTransfer?.files[0];
-    if (file) onFile(file);
+    const files = [...(event.dataTransfer?.files ?? [])];
+    if (files.length > 0) onFiles(files);
   });
 
   // A file dropped outside the zone would otherwise be opened by the browser.

@@ -40,11 +40,11 @@
 
     <main class="page">
       <div class="intro">
-        <h1>Convert a PDF to text</h1>
-        <p>The file is read in your browser. Nothing is sent over the internet.</p>
+        <h1>Convert PDFs to text</h1>
+        <p>The files are read in your browser. Nothing is sent over the internet.</p>
       </div>
 
-      <input id="pdf-input" class="visually-hidden" type="file" accept="application/pdf" />
+      <input id="pdf-input" class="visually-hidden" type="file" accept="application/pdf" multiple />
 
       <label id="dropzone" class="dropzone" for="pdf-input">
         <svg class="icon" width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
@@ -53,22 +53,10 @@
           <path d="M12 12v6" />
           <path d="m15 15-3-3-3 3" />
         </svg>
-        <span class="dropzone-title">Drop a PDF here</span>
-        <span class="dropzone-or">or <span class="button button-secondary">Choose a file</span></span>
+        <span class="dropzone-title">Drop PDFs here</span>
+        <span class="dropzone-or">or <span class="button button-secondary">Choose files</span></span>
         <span class="label">PDF ONLY</span>
       </label>
-
-      <div id="file-row" class="file-row" hidden>
-        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-          <path d="M16 13H8" />
-          <path d="M16 17H8" />
-        </svg>
-        <span id="file-name" class="file-name"></span>
-        <span id="file-pages" class="label"></span>
-        <button id="change-file" class="button button-ghost" type="button">Change file</button>
-      </div>
 
       <div id="status" class="status" role="status" aria-live="polite">
         <svg class="icon icon-loading" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
@@ -84,25 +72,18 @@
         <span id="status-text"></span>
       </div>
 
-      <div id="skeleton" class="card skeleton" aria-hidden="true" hidden>
-        <div style="width: 42%"></div>
-        <div style="width: 96%"></div>
-        <div style="width: 88%"></div>
-        <div style="width: 92%"></div>
-        <div style="width: 61%"></div>
-      </div>
-
-      <section id="result" class="card result" hidden>
+      <section id="files" class="card files" hidden>
         <div class="toolbar">
           <div class="toolbar-start">
+            <input id="select-all" class="checkbox" type="checkbox" aria-label="Select all files" />
+            <span id="files-meta" class="label"></span>
+          </div>
+          <div class="toolbar-end">
             <div class="segmented" role="group" aria-label="Output format">
               <button id="format-text" class="segment" type="button" aria-pressed="true">Text</button>
               <button id="format-markdown" class="segment" type="button" aria-pressed="false">Markdown</button>
             </div>
-            <span id="result-meta" class="label"></span>
-          </div>
-          <div class="toolbar-end">
-            <button id="copy-button" class="button button-secondary" type="button">
+            <button id="copy-selected" class="button button-primary" type="button" disabled>
               <svg class="icon icon-copy" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="8" y="8" width="14" height="14" rx="2" />
                 <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
@@ -110,17 +91,49 @@
               <svg class="icon icon-copied" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M20 6 9 17l-5-5" />
               </svg>
-              <span id="copy-label">Copy</span>
-            </button>
-            <button id="download-button" class="button button-primary" type="button">
-              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <path d="m7 10 5 5 5-5" />
-                <path d="M12 15V3" />
-              </svg>
-              <span id="download-label">Download .txt</span>
+              <span>Copy selected</span>
             </button>
           </div>
+        </div>
+        <ul id="file-list" class="file-list"></ul>
+      </section>
+
+      <!-- One row per file, cloned by views.ts. Disabled until the file is converted. -->
+      <template id="file-template">
+        <li class="file-item">
+          <input class="checkbox file-check" type="checkbox" aria-label="Select this file" disabled />
+          <button class="file-open" type="button" title="Show in the preview" disabled>
+            <span class="file-name"></span>
+          </button>
+          <span class="label file-meta"></span>
+          <button class="button button-icon file-copy" type="button" title="Copy" disabled>
+            <svg class="icon icon-copy" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="8" y="8" width="14" height="14" rx="2" />
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+            </svg>
+            <svg class="icon icon-copied" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </button>
+          <button class="button button-icon file-download" type="button" title="Download" disabled>
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M12 15V3" />
+            </svg>
+          </button>
+          <button class="button button-icon file-remove" type="button" title="Remove">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </li>
+      </template>
+
+      <section id="preview" class="card result" hidden>
+        <div class="toolbar">
+          <span id="preview-name" class="file-name"></span>
+          <span id="preview-meta" class="label"></span>
         </div>
         <div class="result-body">
           <pre id="output" class="output"></pre>
